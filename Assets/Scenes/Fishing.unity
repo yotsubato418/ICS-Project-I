@@ -163,12 +163,12 @@ MonoBehaviour:
   - 1
   - 0.1
   DepthWeight:
-  - 0
-  - 0.4
+  - 0.3
   - 0.6
-  - 0.8
-  - 1.3
-  - 2
+  - 0.9
+  - 1.1
+  - 1.8
+  - 3
   hookTransform: {fileID: 590075465}
   bottomLimit: -18
   spawnInterval: 3.3
@@ -618,7 +618,7 @@ MonoBehaviour:
   leftLimit: -4
   rightLimit: 4
   surfaceY: 3
-  bottomY: -30
+  bottomY: -35
 --- !u!4 &694560202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5644163722128809662, guid: 6d869d13db35cbb4db476d79b86de913, type: 3}
