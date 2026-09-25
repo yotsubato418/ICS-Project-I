@@ -16,9 +16,9 @@ public class Score : MonoBehaviour
     {
     
     }
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Fish"))
+        if (other.CompareTag("Fish"))
         {
             score += 1;
             Debug.Log("Score: " + score);
