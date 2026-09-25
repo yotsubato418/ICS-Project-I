@@ -148,7 +148,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca1e6c9c04ee48638e24c96d24f5363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomSpawner
-  ItemPrefab: {fileID: 2923108213091313065, guid: b3bd777ec0d924c85b311aa1feb3189f, type: 3}
+  ItemPrefabs:
+  - {fileID: 2923108213091313065, guid: b3bd777ec0d924c85b311aa1feb3189f, type: 3}
+  - {fileID: 2923108213091313065, guid: aa0e73100b64744bc926d9b32e40e25d, type: 3}
+  - {fileID: 2923108213091313065, guid: de5645a3e91ce42dc9adcc6f75b1655a, type: 3}
+  - {fileID: 2923108213091313065, guid: 9d92b022bff17453786564a86204f5e0, type: 3}
+  - {fileID: 2923108213091313065, guid: 255ca23b5230a4ebca774fcf7f150332, type: 3}
+  - {fileID: 2923108213091313065, guid: 299f79f61f52d41b49e2548b6d059535, type: 3}
+  SpawnWeights:
+  - 10
+  - 8
+  - 6
+  - 4
+  - 1
+  - 0.1
+  DepthWeight:
+  - 0
+  - 0.2
+  - 0.4
+  - 0.6
+  - 1
+  - 1.5
   spawnInterval: 4
   minX: -8
   maxX: 8

@@ -35,7 +35,7 @@ public class FishSwim : MonoBehaviour
     void FlipToDirection()
     {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * direction;
+        scale.x = Mathf.Abs(scale.x) * -direction;
         transform.localScale = scale;
     }
 }
