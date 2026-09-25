@@ -618,7 +618,7 @@ MonoBehaviour:
   leftLimit: -4
   rightLimit: 4
   surfaceY: 3
-  bottomY: -18
+  bottomY: -30
 --- !u!4 &694560202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5644163722128809662, guid: 6d869d13db35cbb4db476d79b86de913, type: 3}
