@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hook
+  - Fish
   layers:
   - Default
   - TransparentFX
@@ -41,12 +42,6 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Background
-    uniqueID: 1056502987
-    locked: 0
-  - name: Sprites
-    uniqueID: 4112567043
     locked: 0
   m_RenderingLayers:
   - Default
