@@ -15,8 +15,9 @@ public class RandomSpawner : MonoBehaviour
     public float minX = -8f;
     public float maxX = 8f;
     public float minY = -6f;
-    public float maxY = 1f;
+    public float maxY = 0f;
     public float depthLimit = 3f;
+    public float waterSurfaceY = -3f;
 
     Camera mainCamera;
     float startPosY;
@@ -45,7 +46,8 @@ public class RandomSpawner : MonoBehaviour
     {
         float cameraY = mainCamera.transform.position.y;
         float depth = startPosY - cameraY;
-        Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), cameraY + Random.Range(minY, maxY), 0f);
+        float effectiveY = Mathf.Min(cameraY, waterSurfaceY);
+        Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), effectiveY + Random.Range(minY, maxY), 0f);
         GameObject chosenPrefab = ItemPrefabs[GetWeightedIndex(depth)];
         Instantiate(chosenPrefab, randomPosition, Quaternion.identity);
     }
