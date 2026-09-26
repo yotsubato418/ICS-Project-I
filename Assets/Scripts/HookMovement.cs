@@ -4,26 +4,42 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class HookMovement : MonoBehaviour
 {
-    [SerializeField] float horizontalSpeed = 5f;
-    [SerializeField] float descentSpeed = 1.5f;
-    [SerializeField] float ascentSpeed = 3f;
+    [Header("Physics")]
+    [SerializeField] float hookMass = 1f;
+    [SerializeField] float horizontalAcceleration = 15f;
+    [SerializeField] float descentAcceleration = 6f;
+    [SerializeField] float ascentAcceleration = 12f;
+    [SerializeField] float waterDrag = 3f;
+
+    [Header("Movement Limits")]
     [SerializeField] float leftLimit = -4f;
     [SerializeField] float rightLimit = 4f;
     [SerializeField] float surfaceY = 3f;
     [SerializeField] float bottomY = -3f;
+    [SerializeField] float mouseSteeringSensitivity = 2f;
+
+    enum ControlMode { Mouse, AD, Arrows }
+    ControlMode controlMode = ControlMode.Mouse;
+
+    const float mouseSwitchPixels = 2f;
 
     Rigidbody2D body;
     Camera mainCamera;
     float horizontalInput;
     float mouseTargetX;
+    Vector2 lastMousePosition;
+    bool hasMousePosition;
     bool casting;
     bool recalling;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        body.bodyType = RigidbodyType2D.Kinematic;
+        body.bodyType = RigidbodyType2D.Dynamic;
+        body.useAutoMass = false;
+        body.mass = Mathf.Max(0.01f, hookMass);
         body.gravityScale = 0f;
+        body.freezeRotation = true;
 
         mainCamera = Camera.main;
         mouseTargetX = body.position.x;
@@ -31,68 +47,148 @@ public class HookMovement : MonoBehaviour
 
     void Update()
     {
+        Mouse mouse = Mouse.current;
+
+        if (mouse != null && mainCamera != null)
+        {
+            Vector2 mousePosition = mouse.position.ReadValue();
+
+            if (hasMousePosition &&
+                (mousePosition - lastMousePosition).sqrMagnitude >
+                mouseSwitchPixels * mouseSwitchPixels)
+            {
+                controlMode = ControlMode.Mouse;
+            }
+
+            lastMousePosition = mousePosition;
+            hasMousePosition = true;
+            mouseTargetX = mainCamera.ScreenToWorldPoint(mousePosition).x;
+        }
+
         Keyboard keyboard = Keyboard.current;
         horizontalInput = 0f;
 
-        if (keyboard != null)
+        if (keyboard == null)
+            return;
+
+        if (keyboard.aKey.wasPressedThisFrame ||
+            keyboard.dKey.wasPressedThisFrame)
         {
-            if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
-                horizontalInput -= 1f;
+            controlMode = ControlMode.AD;
+        }
 
-            if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
-                horizontalInput += 1f;
+        if (keyboard.leftArrowKey.wasPressedThisFrame ||
+            keyboard.rightArrowKey.wasPressedThisFrame)
+        {
+            controlMode = ControlMode.Arrows;
+        }
 
-            if (keyboard.spaceKey.wasPressedThisFrame)
+        if (keyboard.spaceKey.wasPressedThisFrame)
+        {
+            if (!casting)
             {
-                if (!casting)
-                {
-                    casting = true;
-                    recalling = false;
-                }
-                else
-                {
-                    recalling = true;
-                }
+                casting = true;
+                recalling = false;
+            }
+            else
+            {
+                recalling = true;
             }
         }
 
-        if (Mouse.current != null && mainCamera != null)
+        if (controlMode == ControlMode.AD)
         {
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            mouseTargetX = mainCamera.ScreenToWorldPoint(mousePosition).x;
+            horizontalInput =
+                (keyboard.dKey.isPressed ? 1f : 0f) -
+                (keyboard.aKey.isPressed ? 1f : 0f);
+        }
+        else if (controlMode == ControlMode.Arrows)
+        {
+            horizontalInput =
+                (keyboard.rightArrowKey.isPressed ? 1f : 0f) -
+                (keyboard.leftArrowKey.isPressed ? 1f : 0f);
         }
     }
 
     void FixedUpdate()
     {
-        if (!casting) return;
+        EnforceLimits();
 
-        float step = horizontalSpeed * Time.fixedDeltaTime;
+        if (!casting)
+            return;
 
-        // A/D or arrow keys override mouse steering while held.
-        float nextX = Mathf.Abs(horizontalInput) > 0.01f
-            ? body.position.x + horizontalInput * step
-            : Mathf.MoveTowards(body.position.x, mouseTargetX, step);
+        float steering = horizontalInput;
 
-        float verticalSpeed = recalling ? ascentSpeed : -descentSpeed;
-        float nextY = body.position.y + verticalSpeed * Time.fixedDeltaTime;
-
-        if (nextY <= bottomY)
+        if (controlMode == ControlMode.Mouse)
         {
-            nextY = bottomY;
+            float distanceToMouse = mouseTargetX - body.position.x;
+            steering = Mathf.Clamp(
+                distanceToMouse * mouseSteeringSensitivity, -1f, 1f
+            );
+        }
+
+        // Stop pushing outward when the hook reaches a side limit.
+        if ((body.position.x <= leftLimit && steering < 0f) ||
+            (body.position.x >= rightLimit && steering > 0f))
+        {
+            steering = 0f;
+        }
+
+        float verticalAcceleration =
+            recalling ? ascentAcceleration : -descentAcceleration;
+
+        Vector2 acceleration = new Vector2(
+            steering * horizontalAcceleration,
+            verticalAcceleration
+        );
+
+        // F = m × a. AddForce applies it through the 2D physics simulation.
+        body.AddForce(body.mass * acceleration, ForceMode2D.Force);
+
+        // Water resists motion in either direction.
+        if (body.position.y < surfaceY)
+        {
+            Vector2 dragForce = -Mathf.Max(0f, waterDrag) *
+                                body.linearVelocity;
+
+            body.AddForce(dragForce, ForceMode2D.Force);
+        }
+    }
+
+    void EnforceLimits()
+    {
+        Vector2 position = body.position;
+        Vector2 velocity = body.linearVelocity;
+
+        if (position.x < leftLimit)
+        {
+            position.x = leftLimit;
+            velocity.x = Mathf.Max(0f, velocity.x);
+        }
+        else if (position.x > rightLimit)
+        {
+            position.x = rightLimit;
+            velocity.x = Mathf.Min(0f, velocity.x);
+        }
+
+        if (casting && !recalling && position.y <= bottomY)
+        {
+            position.y = bottomY;
+            velocity.y = 0f;
             recalling = true;
         }
 
-        if (recalling && nextY >= surfaceY)
+        if (casting && recalling && position.y >= surfaceY)
         {
-            nextY = surfaceY;
+            position.y = surfaceY;
+            velocity = Vector2.zero;
             casting = false;
             recalling = false;
         }
 
-        body.MovePosition(new Vector2(
-            Mathf.Clamp(nextX, leftLimit, rightLimit),
-            nextY
-        ));
+        // These corrections only prevent crossing the game area's edges.
+        // Movement between the edges comes from forces.
+        body.position = position;
+        body.linearVelocity = velocity;
     }
 }
