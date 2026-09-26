@@ -284,7 +284,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 715953213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &287965083
@@ -642,6 +643,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 715953213}
+  - component: {fileID: 715953216}
+  - component: {fileID: 715953214}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -657,15 +660,44 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715953212}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.51617, y: 5.70971, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.51617, y: 5.70971, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1878254572}
   - {fileID: 1673347060}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 287965082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &715953214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715953212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c952c6139d054684867396f2e594c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmoothBar
+  maxValue: 100
+  currentValue: 100
+  smoothSpeed: 2
+--- !u!114 &715953216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715953212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16172730f731c4587b4a47297ae68420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HookCatch
+  hpBar: {fileID: 0}
+  durabilityBar: {fileID: 0}
 --- !u!1 &1063843506
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +883,7 @@ GameObject:
   - component: {fileID: 1673347062}
   - component: {fileID: 1673347061}
   m_Layer: 0
-  m_Name: hud-detached-hp-durability-fills_1
+  m_Name: durabilityBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -866,7 +898,7 @@ Transform:
   m_GameObject: {fileID: 1673347059}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.55, y: 0.63, z: 0}
+  m_LocalPosition: {x: -7.44, y: -4.354, z: 5}
   m_LocalScale: {x: 0.3375, y: 0.3375, z: 0.3375}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -934,7 +966,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -182400253
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9167466314954284446, guid: 1b705f8cbc8aa4ded879f5b8655eca9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -958,7 +990,7 @@ GameObject:
   - component: {fileID: 1878254574}
   - component: {fileID: 1878254573}
   m_Layer: 0
-  m_Name: hud-detached-hp-durability-fills_0
+  m_Name: hpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,8 +1005,8 @@ Transform:
   m_GameObject: {fileID: 1878254571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.45957, y: 2.22, z: 0}
-  m_LocalScale: {x: 0.3406, y: 0.3406, z: 0.3406}
+  m_LocalPosition: {x: -7.44, y: -2.84, z: 5}
+  m_LocalScale: {x: 0.3406, y: 0.34969404, z: 0.3406}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 715953213}
@@ -1041,7 +1073,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -182400253
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7832002456377981130, guid: 1b705f8cbc8aa4ded879f5b8655eca9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1153,4 +1185,3 @@ SceneRoots:
   - {fileID: 590075465}
   - {fileID: 493497678}
   - {fileID: 36032888}
-  - {fileID: 715953213}
