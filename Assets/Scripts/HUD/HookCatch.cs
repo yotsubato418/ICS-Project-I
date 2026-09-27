@@ -8,7 +8,7 @@ public class HookCatch : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            durabilityBar.SetValue(durabilityBar.currentValue - 5f);
+            durabilityBar.SetValue(durabilityBar.currentValue - 10f);
         }
         if (other.CompareTag("Rock"))
         {
