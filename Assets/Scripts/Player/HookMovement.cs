@@ -35,7 +35,7 @@ public class HookMovement : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        body.bodyType = RigidbodyType2D.Dynamic;
+        body.bodyType = RigidbodyType2D.Kinematic;
         body.useAutoMass = false;
         body.mass = Mathf.Max(0.01f, hookMass);
         body.gravityScale = 0f;
@@ -87,6 +87,7 @@ public class HookMovement : MonoBehaviour
         {
             if (!casting)
             {
+                body.bodyType = RigidbodyType2D.Dynamic;
                 casting = true;
                 recalling = false;
             }
@@ -181,9 +182,14 @@ public class HookMovement : MonoBehaviour
         if (casting && recalling && position.y >= surfaceY)
         {
             position.y = surfaceY;
-            velocity = Vector2.zero;
             casting = false;
             recalling = false;
+
+            body.position = position;
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+            body.bodyType = RigidbodyType2D.Kinematic;
+            return;
         }
 
         // these corrections only prevent crossing the game area's edges
