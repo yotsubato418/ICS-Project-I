@@ -4,12 +4,18 @@ public class HookDurability : MonoBehaviour
 {
     [SerializeField] float maxDurability = 100f;
     [SerializeField] float currentDurability;
+    [SerializeField] Transform durabilityBar;
+    float fullWidth;
 
     public float CurrentDurability => currentDurability;
 
     void Awake()
     {
         currentDurability = maxDurability;
+        if (durabilityBar != null)
+        {
+            fullWidth = durabilityBar.localScale.x;
+        }
     }
 
     public void TakeDamage(float amount)
@@ -18,6 +24,10 @@ public class HookDurability : MonoBehaviour
             return;
 
         currentDurability = Mathf.Max(0f, currentDurability - amount);
+        if (durabilityBar != null)
+        {
+            durabilityBar.localScale = new Vector3(fullWidth * currentDurability / maxDurability, durabilityBar.localScale.y, 1f);
+        }
         Debug.Log("Hook durability: " + currentDurability, this);
 
         if (currentDurability == 0f)

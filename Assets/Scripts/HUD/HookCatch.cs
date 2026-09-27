@@ -2,17 +2,12 @@ using UnityEngine;
 
 public class HookCatch : MonoBehaviour
 {
-    public SmoothBar hpBar;
     public SmoothBar durabilityBar;
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.CompareTag("Rock"))
         {
             durabilityBar.SetValue(durabilityBar.currentValue - 10f);
-        }
-        if (other.CompareTag("Rock"))
-        {
-            hpBar.SetValue(hpBar.currentValue - 10f);
         }
     }
 }
