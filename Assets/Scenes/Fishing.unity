@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 36032888}
   - component: {fileID: 36032887}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Fish Spawner
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,8 +315,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 715953213}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &287965083
@@ -421,6 +420,8 @@ GameObject:
   - component: {fileID: 590075468}
   - component: {fileID: 590075466}
   - component: {fileID: 590075467}
+  - component: {fileID: 590075469}
+  - component: {fileID: 590075470}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Hook
@@ -502,7 +503,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -182400253
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -49532090776259237, guid: 3125e04c8e0cbd743b64544f6b811d92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -528,6 +529,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 206955588}
+  - {fileID: 773113518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &590075466
@@ -545,11 +547,11 @@ MonoBehaviour:
   hookMass: 1
   horizontalAcceleration: 15
   descentAcceleration: 6
-  ascentAcceleration: 12
+  ascentAcceleration: 60
   waterDrag: 3
   leftLimit: -8
   rightLimit: 8
-  surfaceY: 3
+  surfaceY: 0
   bottomY: -35
   mouseSteeringSensitivity: 2
 --- !u!114 &590075467
@@ -595,13 +597,40 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -1}
   m_Size: {x: 4.6, y: 4.5}
   m_Direction: 0
+--- !u!114 &590075469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590075461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2f401ccd41bec40a7634292e11a1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HookOn
+  catchPoint: {fileID: 773113518}
+--- !u!114 &590075470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590075461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9dafa387da961940a7d9cc40f72d7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HookDurability
+  maxDurability: 100
+  currentDurability: 0
 --- !u!1 &715953212
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,13 +658,13 @@ Transform:
   m_GameObject: {fileID: 715953212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.51617, y: 5.70971, z: 10}
+  m_LocalPosition: {x: 0.51617, y: 5.70971, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1878254572}
   - {fileID: 1673347060}
-  m_Father: {fileID: 287965082}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &715953214
 MonoBehaviour:
@@ -666,6 +695,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HookCatch
   hpBar: {fileID: 0}
   durabilityBar: {fileID: 0}
+--- !u!1 &773113517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 773113518}
+  m_Layer: 0
+  m_Name: CatchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &773113518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773113517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 590075465}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1052956397
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,8 +1003,8 @@ Transform:
   m_GameObject: {fileID: 1673347059}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: -4.354, z: 5}
-  m_LocalScale: {x: 0.3375, y: 0.3375, z: 0.3375}
+  m_LocalPosition: {x: -7, y: -2.5, z: 5}
+  m_LocalScale: {x: 0.34, y: 0.34, z: 0.34}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 715953213}
@@ -1081,8 +1141,8 @@ Transform:
   m_GameObject: {fileID: 1878254571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: -2.84, z: 5}
-  m_LocalScale: {x: 0.3406, y: 0.34969404, z: 0.3406}
+  m_LocalPosition: {x: -7, y: -1, z: 5}
+  m_LocalScale: {x: 0.34, y: 0.34, z: 0.34}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 715953213}
@@ -1252,12 +1312,73 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2128826594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128826596}
+  - component: {fileID: 2128826595}
+  m_Layer: 0
+  m_Name: Rock Spawner
+  m_TagString: Rock
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2128826595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128826594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca1e6c9c04ee48638e24c96d24f5363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomSpawner
+  ItemPrefabs:
+  - {fileID: 6651553000933592060, guid: 943cf75e9c78db34a96e6dac8671c5d6, type: 3}
+  SpawnWeights:
+  - 10
+  DepthWeight:
+  - 1
+  hookTransform: {fileID: 590075465}
+  bottomLimit: -18
+  spawnInterval: 3.3
+  minX: -8
+  maxX: 8
+  minY: -6
+  maxY: -3
+  depthLimit: 3
+  waterSurfaceY: -3
+--- !u!4 &2128826596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128826594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 287965082}
+  - {fileID: 715953213}
   - {fileID: 1471635386}
   - {fileID: 590075465}
   - {fileID: 493497678}
   - {fileID: 36032888}
+  - {fileID: 2128826596}
