@@ -127,7 +127,7 @@ public class HookMovement : MonoBehaviour
             );
         }
 
-        // Stop pushing outward when the hook reaches a side limit.
+        // stop pushing outward when the hook reaches a side limit
         if ((body.position.x <= leftLimit && steering < 0f) ||
             (body.position.x >= rightLimit && steering > 0f))
         {
@@ -142,10 +142,10 @@ public class HookMovement : MonoBehaviour
             verticalAcceleration
         );
 
-        // F = m × a. AddForce applies it through the 2D physics simulation.
+        // F = m × a. AddForce applies it through the 2D physics simulation
         body.AddForce(body.mass * acceleration, ForceMode2D.Force);
 
-        // Water resists motion in either direction.
+        // water resists motion in either direction.
         if (body.position.y < surfaceY)
         {
             Vector2 dragForce = -Mathf.Max(0f, waterDrag) *
@@ -186,8 +186,8 @@ public class HookMovement : MonoBehaviour
             recalling = false;
         }
 
-        // These corrections only prevent crossing the game area's edges.
-        // Movement between the edges comes from forces.
+        // these corrections only prevent crossing the game area's edges
+        // movement between the edges comes from forces
         body.position = position;
         body.linearVelocity = velocity;
     }

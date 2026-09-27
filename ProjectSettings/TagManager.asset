@@ -49,5 +49,8 @@ TagManager:
   - name: Sprites
     uniqueID: 4112567043
     locked: 0
+  - name: UI
+    uniqueID: 826239189
+    locked: 0
   m_RenderingLayers:
   - Default
