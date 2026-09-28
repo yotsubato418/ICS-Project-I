@@ -63,8 +63,7 @@ public class HookOn : MonoBehaviour
         fishBody.angularDamping = 2f;
         fishBody.linearVelocity = Vector2.zero;
         fishBody.angularVelocity = 0f;
-
-        // place its mouth at the hook once, when it is caught.
+        
         fishBody.position +=
             (Vector2)(catchPoint.position - mouthPoint.position);
 
@@ -75,5 +74,28 @@ public class HookOn : MonoBehaviour
         joint.anchor = fishAnchor;
         joint.connectedAnchor = hookAnchor;
         joint.enableCollision = false;
+    }
+
+    public void GetCaughtLoad(out float totalMass, out float downwardForce)
+    {
+        totalMass = 0f;
+        downwardForce = 0f;
+
+        foreach (FishSwim fish in caughtFish)
+        {
+            if (fish == null)
+                continue;
+
+            Rigidbody2D fishBody = fish.GetComponent<Rigidbody2D>();
+
+            if (fishBody == null || !fishBody.simulated)
+                continue;
+
+            totalMass += fishBody.mass;
+
+            // How strongly gravity pulls this fish downward.
+            downwardForce += fishBody.mass *
+                Mathf.Max(0f, -Physics2D.gravity.y * fishBody.gravityScale);
+        }
     }
 }

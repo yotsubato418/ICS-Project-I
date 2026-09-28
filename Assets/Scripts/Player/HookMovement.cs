@@ -25,6 +25,7 @@ public class HookMovement : MonoBehaviour
     const float mouseSwitchPixels = 2f;
 
     Rigidbody2D body;
+    HookOn hookCatch;
     Camera mainCamera;
     float horizontalInput;
     float mouseTargetX;
@@ -37,6 +38,7 @@ public class HookMovement : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        hookCatch = GetComponent<HookOn>();
         body.bodyType = RigidbodyType2D.Kinematic;
         body.useAutoMass = false;
         body.mass = Mathf.Max(0.01f, hookMass);
@@ -151,16 +153,30 @@ public class HookMovement : MonoBehaviour
             steering = 0f;
         }
 
-        float verticalAcceleration = recalling ? ascentAcceleration : -descentAcceleration;
+        float verticalForce;
 
-        float horizontalA = recalling ? returnAcceleration : horizontalAcceleration;
-        Vector2 acceleration = new Vector2(
-            steering * horizontalA,
-            verticalAcceleration
+        if (recalling)
+        {
+            float fishMass = 0f;
+            float fishWeight = 0f;
+
+            if (hookCatch != null)
+                hookCatch.GetCaughtLoad(out fishMass, out fishWeight);
+
+            verticalForce =
+                (body.mass + fishMass) * ascentAcceleration + fishWeight;
+        }
+        else
+        {
+            verticalForce = -body.mass * descentAcceleration;
+        }
+
+        Vector2 movementForce = new Vector2(
+            body.mass * steering * horizontalAcceleration,
+            verticalForce
         );
 
-        // F = m × a. AddForce applies it through the 2D physics simulation
-        body.AddForce(body.mass * acceleration, ForceMode2D.Force);
+        body.AddForce(movementForce, ForceMode2D.Force);
 
         // water resists motion in either direction.
         if (body.position.y < surfaceY)

@@ -549,6 +549,7 @@ MonoBehaviour:
   horizontalAcceleration: 15
   descentAcceleration: 6
   ascentAcceleration: 60
+  returnAcceleration: 30
   waterDrag: 3
   leftLimit: -8
   rightLimit: 8
@@ -1817,11 +1818,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RockSpawner
   ItemPrefabs:
   - {fileID: 6651553000933592060, guid: 943cf75e9c78db34a96e6dac8671c5d6, type: 3}
-  SpawnWeights: 5
-  DepthWeight: 2
+  SpawnWeights: 1
+  DepthWeight: 1
   hookTransform: {fileID: 590075465}
   bottomLimit: -40
-  spawnInterval: 1
+  spawnInterval: 0.5
   minX: -8
   maxX: 8
   minY: -30
