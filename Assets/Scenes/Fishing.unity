@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 2923108213091313065, guid: 9d92b022bff17453786564a86204f5e0, type: 3}
   - {fileID: 2923108213091313065, guid: 255ca23b5230a4ebca774fcf7f150332, type: 3}
   - {fileID: 2923108213091313065, guid: 299f79f61f52d41b49e2548b6d059535, type: 3}
-  SpawnWeights:
+  SpawnWeight:
   - 10
   - 8
   - 6
@@ -1781,7 +1781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128826596}
-  - component: {fileID: 2128826595}
+  - component: {fileID: 2128826597}
   m_Layer: 0
   m_Name: Rock Spawner
   m_TagString: Rock
@@ -1789,33 +1789,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2128826595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128826594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca1e6c9c04ee48638e24c96d24f5363, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RandomSpawner
-  ItemPrefabs:
-  - {fileID: 6651553000933592060, guid: 943cf75e9c78db34a96e6dac8671c5d6, type: 3}
-  SpawnWeights:
-  - 15
-  DepthWeight:
-  - -10
-  hookTransform: {fileID: 590075465}
-  bottomLimit: -41
-  spawnInterval: 2
-  minX: -8
-  maxX: 8
-  minY: -6
-  maxY: -3
-  depthLimit: 3
-  waterSurfaceY: -3
 --- !u!4 &2128826596
 Transform:
   m_ObjectHideFlags: 0
@@ -1831,6 +1804,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2128826597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128826594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979b5bc9b6f504fbea8fc3bb8100baa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RockSpawner
+  ItemPrefabs:
+  - {fileID: 6651553000933592060, guid: 943cf75e9c78db34a96e6dac8671c5d6, type: 3}
+  SpawnWeights: 15
+  DepthWeight: 2
+  hookTransform: {fileID: 590075465}
+  bottomLimit: -30
+  spawnInterval: 2
+  minX: -8
+  maxX: 8
+  minY: -6
+  maxY: -3
+  depthLimit: 3
+  waterSurfaceY: -3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,10 +1,10 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class RandomSpawner : MonoBehaviour
+public class FishSpawner : MonoBehaviour
 {
     public GameObject[] ItemPrefabs;
-    public float[] SpawnWeights;
+    public float[] SpawnWeight;
     public float[] DepthWeight;
 
     public Transform hookTransform;
@@ -55,11 +55,11 @@ public class RandomSpawner : MonoBehaviour
     int GetWeightedIndex(float depth)
     {
         float tWeight = 0f;
-        float[] depthWeight = new float[SpawnWeights.Length];
-        for (int i = 0; i < SpawnWeights.Length; i++)
+        float[] depthWeight = new float[SpawnWeight.Length];
+        for (int i = 0; i < SpawnWeight.Length; i++)
         {
             float adjustedDepth = Mathf.Max(0f, depth - depthLimit);
-            depthWeight[i] = SpawnWeights[i] + DepthWeight[i] * adjustedDepth;
+            depthWeight[i] = SpawnWeight[i] + DepthWeight[i] * adjustedDepth;
             if (depthWeight[i] < 0f)
                 depthWeight[i] = 0f;
             tWeight += depthWeight[i];
