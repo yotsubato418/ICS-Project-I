@@ -126,7 +126,15 @@ public class HookMovement : MonoBehaviour
             return;
 
         float steering = horizontalInput;
-
+        if (recalling)
+        {
+            if (body.position.x > 0.1f)
+                steering = -1f;
+            else if (body.position.x < -0.1f)
+                steering = 1f;
+            else
+                steering = 0f;
+        }
         if (controlMode == ControlMode.Mouse)
         {
             float distanceToMouse = mouseTargetX - body.position.x;
@@ -142,8 +150,7 @@ public class HookMovement : MonoBehaviour
             steering = 0f;
         }
 
-        float verticalAcceleration =
-            recalling ? ascentAcceleration : -descentAcceleration;
+        float verticalAcceleration = recalling ? ascentAcceleration : -descentAcceleration;
 
         Vector2 acceleration = new Vector2(
             steering * horizontalAcceleration,
@@ -177,6 +184,11 @@ public class HookMovement : MonoBehaviour
         {
             position.x = rightLimit;
             velocity.x = Mathf.Min(0f, velocity.x);
+        }
+        if (recalling && Mathf.Abs(position.x) < 0.1f)
+        {
+            position.x = 0f;
+            velocity.x = 0f;
         }
 
         if (casting && !recalling && position.y <= bottomY)
