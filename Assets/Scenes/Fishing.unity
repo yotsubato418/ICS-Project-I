@@ -170,7 +170,7 @@ MonoBehaviour:
   - 1.8
   - 3
   hookTransform: {fileID: 590075465}
-  bottomLimit: -30
+  bottomLimit: -41
   spawnInterval: 3.3
   minX: -8
   maxX: 8
@@ -553,7 +553,7 @@ MonoBehaviour:
   leftLimit: -8
   rightLimit: 8
   surfaceY: 0
-  bottomY: -35
+  bottomY: -40
   mouseSteeringSensitivity: 2
 --- !u!114 &590075467
 MonoBehaviour:
@@ -1804,12 +1804,12 @@ MonoBehaviour:
   ItemPrefabs:
   - {fileID: 6651553000933592060, guid: 943cf75e9c78db34a96e6dac8671c5d6, type: 3}
   SpawnWeights:
-  - 10
+  - 15
   DepthWeight:
-  - 1
+  - -10
   hookTransform: {fileID: 590075465}
-  bottomLimit: -30
-  spawnInterval: 3.3
+  bottomLimit: -41
+  spawnInterval: 2
   minX: -8
   maxX: 8
   minY: -6
