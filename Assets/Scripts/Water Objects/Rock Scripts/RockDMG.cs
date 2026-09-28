@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class RockDMG : MonoBehaviour
 {
-    [SerializeField] float damage = 10f;
+    [SerializeField] float damage = 15f;
+    [SerializeField] float speedDamage = 3f;
     [SerializeField] float bounceImpulse = 3f;
 
     Rigidbody2D rockBody;
@@ -35,9 +36,8 @@ public class RockDMG : MonoBehaviour
             return;
 
         hasHitHook = true;
-        durability.TakeDamage(damage);
-
         Rigidbody2D hookBody = durability.GetComponent<Rigidbody2D>();
+        durability.TakeDamage(damage + hookBody.linearVelocity.magnitude * speedDamage);
 
         if (hookBody == null ||
             hookBody.bodyType != RigidbodyType2D.Dynamic)

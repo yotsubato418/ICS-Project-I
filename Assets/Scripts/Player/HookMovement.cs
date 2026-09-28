@@ -31,6 +31,7 @@ public class HookMovement : MonoBehaviour
     bool hasMousePosition;
     bool casting;
     bool recalling;
+    HookDurability durability;
 
     void Awake()
     {
@@ -41,12 +42,18 @@ public class HookMovement : MonoBehaviour
         body.gravityScale = 0f;
         body.freezeRotation = true;
 
+        durability = GetComponent<HookDurability>();
+
         mainCamera = Camera.main;
         mouseTargetX = body.position.x;
     }
 
     void Update()
     {
+        if (casting && durability.CurrentDurability <= 0f)
+        {
+            recalling = true;
+        }
         Mouse mouse = Mouse.current;
 
         if (mouse != null && mainCamera != null)

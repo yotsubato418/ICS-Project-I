@@ -8,14 +8,14 @@ public class RandomSpawner : MonoBehaviour
     public float[] DepthWeight;
 
     public Transform hookTransform;
-    public float bottomLimit = -18f;
+    public float bottomLimit = -30f;
     bool stoppedAtBottom = false;
 
     public float spawnInterval = 3.3f;
     public float minX = -8f;
     public float maxX = 8f;
     public float minY = -6f;
-    public float maxY = 0f;
+    public float maxY = 1f;
     public float depthLimit = 3f;
     public float waterSurfaceY = -3f;
 
