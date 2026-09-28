@@ -9,6 +9,7 @@ public class HookMovement : MonoBehaviour
     [SerializeField] float horizontalAcceleration = 15f;
     [SerializeField] float descentAcceleration = 6f;
     [SerializeField] float ascentAcceleration = 12f;
+    [SerializeField] float returnAcceleration = 30f;
     [SerializeField] float waterDrag = 3f;
 
     [Header("Movement Limits")]
@@ -135,7 +136,7 @@ public class HookMovement : MonoBehaviour
             else
                 steering = 0f;
         }
-        if (controlMode == ControlMode.Mouse)
+        else if (controlMode == ControlMode.Mouse)
         {
             float distanceToMouse = mouseTargetX - body.position.x;
             steering = Mathf.Clamp(
@@ -152,8 +153,9 @@ public class HookMovement : MonoBehaviour
 
         float verticalAcceleration = recalling ? ascentAcceleration : -descentAcceleration;
 
+        float horizontalA = recalling ? returnAcceleration : horizontalAcceleration;
         Vector2 acceleration = new Vector2(
-            steering * horizontalAcceleration,
+            steering * horizontalA,
             verticalAcceleration
         );
 
@@ -185,6 +187,7 @@ public class HookMovement : MonoBehaviour
             position.x = rightLimit;
             velocity.x = Mathf.Min(0f, velocity.x);
         }
+        
         if (recalling && Mathf.Abs(position.x) < 0.1f)
         {
             position.x = 0f;
