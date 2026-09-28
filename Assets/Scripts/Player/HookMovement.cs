@@ -49,10 +49,18 @@ public class HookMovement : MonoBehaviour
         mouseTargetX = body.position.x;
     }
 
+    void StartRecall()
+    {
+        if (recalling) return;
+        recalling = true;
+        AudioManager.Instance.Play(AudioManager.Instance.reelUp);
+    }
+
     void Update()
     {
         if (casting && durability.CurrentDurability <= 0f)
         {
+            StartRecall();
             recalling = true;
         }
         Mouse mouse = Mouse.current;
@@ -98,9 +106,11 @@ public class HookMovement : MonoBehaviour
                 body.bodyType = RigidbodyType2D.Dynamic;
                 casting = true;
                 recalling = false;
+                AudioManager.Instance.Play(AudioManager.Instance.splash);
             }
             else
             {
+                StartRecall();
                 recalling = true;
             }
         }
@@ -199,6 +209,7 @@ public class HookMovement : MonoBehaviour
             position.y = bottomY;
             velocity.y = 0f;
             recalling = true;
+            StartRecall();
         }
 
         if (casting && recalling && position.y >= surfaceY)
@@ -206,6 +217,8 @@ public class HookMovement : MonoBehaviour
             position.y = surfaceY;
             casting = false;
             recalling = false;
+
+            AudioManager.Instance.Play(AudioManager.Instance.happy);
 
             body.position = position;
             body.linearVelocity = Vector2.zero;

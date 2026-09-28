@@ -16,11 +16,21 @@ public class HookOn : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Rock"))
+        {
+            AudioManager.Instance.Play(AudioManager.Instance.bump);
+            return;
+        }
         TryCatch(other);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.CompareTag("Rock"))
+        {
+            AudioManager.Instance.Play(AudioManager.Instance.bump);
+            return;
+        }
         TryCatch(collision.collider);
     }
 
@@ -53,6 +63,7 @@ public class HookOn : MonoBehaviour
 
         if (!caughtFish.Add(fish))
             return;
+        AudioManager.Instance.Play(AudioManager.Instance.catchFish);
         fish.enabled = false; // stop FishSwim moving it.
 
         fishBody.simulated = true;
