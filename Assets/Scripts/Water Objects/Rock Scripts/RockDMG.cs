@@ -29,10 +29,12 @@ public class RockDMG : MonoBehaviour
         if (hasHitHook)
             return;
 
-        HookDurability durability =
-            other.GetComponentInParent<HookDurability>();
+        HookDurability durability = other.GetComponentInParent<HookDurability>();
 
         if (durability == null)
+            return;
+
+        if (durability.GetComponent<HookMovement>().recalling)
             return;
 
         hasHitHook = true;

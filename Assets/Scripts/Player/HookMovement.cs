@@ -30,8 +30,8 @@ public class HookMovement : MonoBehaviour
     float mouseTargetX;
     Vector2 lastMousePosition;
     bool hasMousePosition;
-    bool casting;
-    bool recalling;
+    public bool casting;
+    public bool recalling;
     HookDurability durability;
 
     void Awake()
