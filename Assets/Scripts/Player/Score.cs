@@ -9,6 +9,9 @@ public class Score : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        scoreText.fontSize = 20;
+        scoreText.color = Color.red;
+        scoreText.fontStyle = FontStyles.Bold;
         score = 0;
         scoreText.text = "Score: " + score;
 
@@ -36,7 +39,11 @@ public class Score : MonoBehaviour
             if (other.name.Contains("secret"))
                 score += 10;
             
+<<<<<<< HEAD
             Debug.Log("Score: " + score);
+=======
+            scoreText.text = "Score: " + score;
+>>>>>>> 6a1b5b4bd3033c310fb7b63a9d58f1069dc3f0ee
         }
     }
 }
