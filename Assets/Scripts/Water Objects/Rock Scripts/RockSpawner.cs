@@ -4,7 +4,7 @@ using UnityEngine;
 public class RockSpawner : MonoBehaviour
 {
     public GameObject[] ItemPrefabs;
-    public float SpawnWeights = 15f;
+    public float SpawnWeights = 5f;
     public float DepthWeight = 1f;
 
     public Transform hookTransform;
@@ -36,6 +36,9 @@ public class RockSpawner : MonoBehaviour
     }
     void SpawnRock()
     {
+        HookMovement move = hookTransform.GetComponent<HookMovement>();
+        if (!move.casting || move.recalling)
+            return;
         float cameraY = mainCamera.transform.position.y;
         float depth = startPosY - cameraY;
         float effectiveY = Mathf.Min(cameraY, waterSurfaceY);
