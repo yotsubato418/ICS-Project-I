@@ -1,19 +1,20 @@
 using UnityEngine;
 using TMPro;
 
-public class DepthBar : MonoBehaviour
+public class DepthBarScript : MonoBehaviour
 {
     public TMP_Text depthText;
     Transform hook;
-    [SerializeField] float surfaceY = 3f; 
+    [SerializeField] float surfaceY = 3f;
 
     void Start()
     {
         hook = GameObject.FindWithTag("Hook").transform;
     }
+
     void Update()
     {
         float depth = Mathf.Max(0f, surfaceY - hook.position.y);
-        depthText.text = "Depth: " + Mathf.RoundToInt(depth) + "m";
+        depthText.text = Mathf.RoundToInt(depth) + "m";
     }
 }
