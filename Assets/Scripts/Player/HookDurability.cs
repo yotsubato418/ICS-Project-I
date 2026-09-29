@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HookDurability : MonoBehaviour
 {
+    private GameOver gameOver;
+
     [SerializeField] float maxDurability = 100f;
     [SerializeField] float currentDurability;
     [SerializeField] Transform durabilityBar;
@@ -16,6 +18,7 @@ public class HookDurability : MonoBehaviour
         {
             fullWidth = durabilityBar.localScale.x;
         }
+        gameOver = FindFirstObjectByType<GameOver>();
     }
 
     public void TakeDamage(float amount)
@@ -30,7 +33,15 @@ public class HookDurability : MonoBehaviour
         }
         Debug.Log("Hook durability: " + currentDurability, this);
 
-        if (currentDurability == 0f)
-            Debug.Log("Hook is broken!", this);
+        if (currentDurability <= 0f)
+        {
+              if (gameOver == null){
+            Debug.LogError("GAMEOVER REFERENCE IS NULL!");
+            return;
+            }
+
+            gameOver.GameOverScreen();
+        }
+            
     }
 }

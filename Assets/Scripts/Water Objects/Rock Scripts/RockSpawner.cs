@@ -4,12 +4,10 @@ using UnityEngine;
 public class RockSpawner : MonoBehaviour
 {
     public GameObject[] ItemPrefabs;
-    public float SpawnWeights = 15f;
+    public float SpawnWeights = 5f;
     public float DepthWeight = 1f;
 
     public Transform hookTransform;
-    public float bottomLimit = -30f;
-    bool stoppedAtBottom = false;
 
     public float spawnInterval = 2f;
     public float minX = -8f;
@@ -35,15 +33,12 @@ public class RockSpawner : MonoBehaviour
             started = true;
             InvokeRepeating(nameof(SpawnRock), 0f, spawnInterval);
         }
-
-        if (started && !stoppedAtBottom && hookTransform != null && hookTransform.position.y <= bottomLimit)
-        {
-            stoppedAtBottom = true;
-            CancelInvoke(nameof(SpawnRock));
-        }
     }
     void SpawnRock()
     {
+        HookMovement move = hookTransform.GetComponent<HookMovement>();
+        if (!move.casting || move.recalling)
+            return;
         float cameraY = mainCamera.transform.position.y;
         float depth = startPosY - cameraY;
         float effectiveY = Mathf.Min(cameraY, waterSurfaceY);

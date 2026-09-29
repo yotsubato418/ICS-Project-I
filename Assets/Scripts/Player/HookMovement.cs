@@ -15,8 +15,7 @@ public class HookMovement : MonoBehaviour
     [Header("Movement Limits")]
     [SerializeField] float leftLimit = -4f;
     [SerializeField] float rightLimit = 4f;
-    [SerializeField] float surfaceY = 3f;
-    [SerializeField] float bottomY = -3f;
+    [SerializeField] float surfaceY = 3f; 
     [SerializeField] float mouseSteeringSensitivity = 2f;
 
     enum ControlMode { Mouse, AD, Arrows }
@@ -31,8 +30,8 @@ public class HookMovement : MonoBehaviour
     float mouseTargetX;
     Vector2 lastMousePosition;
     bool hasMousePosition;
-    bool casting;
-    bool recalling;
+    public bool casting;
+    public bool recalling;
     HookDurability durability;
 
     void Awake()
@@ -55,7 +54,7 @@ public class HookMovement : MonoBehaviour
     {
         if (recalling) return;
         recalling = true;
-        AudioManager.Instance.Play(AudioManager.Instance.reelUp);
+        AudioManager.Instance.PlayReel();
     }
 
     void Update()
@@ -220,21 +219,19 @@ public class HookMovement : MonoBehaviour
             velocity.x = 0f;
         }
 
-        if (casting && !recalling && position.y <= bottomY)
-        {
-            position.y = bottomY;
-            velocity.y = 0f;
-            recalling = true;
-            StartRecall();
-        }
-
         if (casting && recalling && position.y >= surfaceY)
         {
             position.y = surfaceY;
             casting = false;
             recalling = false;
 
+            AudioManager.Instance.StopReel();
             AudioManager.Instance.Play(AudioManager.Instance.happy);
+            
+            if (hookCatch != null)
+                hookCatch.ClearCaughtFish();
+
+            FindFirstObjectByType<Score>().ShowResult();
 
             body.position = position;
             body.linearVelocity = Vector2.zero;

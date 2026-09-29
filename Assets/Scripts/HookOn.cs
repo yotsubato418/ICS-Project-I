@@ -16,6 +16,9 @@ public class HookOn : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (GetComponent<HookMovement>().recalling)
+            return;
+        
         if (other.CompareTag("Rock"))
         {
             AudioManager.Instance.Play(AudioManager.Instance.bump);
@@ -26,6 +29,8 @@ public class HookOn : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (GetComponent<HookMovement>().recalling)
+            return;
         if (collision.collider.CompareTag("Rock"))
         {
             AudioManager.Instance.Play(AudioManager.Instance.bump);
@@ -34,11 +39,23 @@ public class HookOn : MonoBehaviour
         TryCatch(collision.collider);
     }
 
+    public void ClearCaughtFish()
+    {
+        foreach (FishSwim fish in caughtFish)
+        {
+            if (fish != null)
+                Destroy(fish.gameObject);
+        }
+        caughtFish.Clear();
+    }
     void TryCatch(Collider2D other)
     {
         if (catchPoint == null)
             return;
 
+        if (GetComponent<HookMovement>().recalling)
+            return;
+        
         FishSwim fish = other.GetComponentInParent<FishSwim>();
         if (fish == null)
             return;
