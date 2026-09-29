@@ -44,6 +44,10 @@ public class FishSpawner : MonoBehaviour
     }
     void SpawnFish()
     {
+        HookMovement move = hookTransform.GetComponent<HookMovement>();
+        if (!move.casting || move.recalling)
+            return;
+        
         float cameraY = mainCamera.transform.position.y;
         float depth = startPosY - cameraY;
         float effectiveY = Mathf.Min(cameraY, waterSurfaceY);
