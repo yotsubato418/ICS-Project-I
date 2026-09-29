@@ -39,6 +39,15 @@ public class HookOn : MonoBehaviour
         TryCatch(collision.collider);
     }
 
+    public void ClearCaughtFish()
+    {
+        foreach (FishSwim fish in caughtFish)
+        {
+            if (fish != null)
+                Destroy(fish.gameObject);
+        }
+        caughtFish.Clear();
+    }
     void TryCatch(Collider2D other)
     {
         if (catchPoint == null)
