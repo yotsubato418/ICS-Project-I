@@ -54,7 +54,7 @@ public class HookMovement : MonoBehaviour
     {
         if (recalling) return;
         recalling = true;
-        AudioManager.Instance.Play(AudioManager.Instance.reelUp);
+        AudioManager.Instance.PlayReel();
     }
 
     void Update()
@@ -225,7 +225,11 @@ public class HookMovement : MonoBehaviour
             casting = false;
             recalling = false;
 
+            AudioManager.Instance.StopReel();
             AudioManager.Instance.Play(AudioManager.Instance.happy);
+
+            if (hookCatch != null)
+                hookCatch.ReleaseCaughtFish();
 
             body.position = position;
             body.linearVelocity = Vector2.zero;
