@@ -117,4 +117,14 @@ public class HookOn : MonoBehaviour
                 Mathf.Max(0f, -Physics2D.gravity.y * fishBody.gravityScale);
         }
     }
+    public void ReleaseCaughtFish()
+    {
+        foreach (FishSwim fish in caughtFish)
+        {
+            if (fish != null)
+                Destroy(fish.gameObject);
+        }
+        caughtFish.Clear();
+    }
+
 }
