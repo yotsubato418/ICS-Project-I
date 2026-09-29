@@ -228,9 +228,6 @@ public class HookMovement : MonoBehaviour
             AudioManager.Instance.StopReel();
             AudioManager.Instance.Play(AudioManager.Instance.happy);
 
-            if (hookCatch != null)
-                hookCatch.ReleaseCaughtFish();
-
             body.position = position;
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
