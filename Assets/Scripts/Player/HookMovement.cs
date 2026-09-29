@@ -54,7 +54,7 @@ public class HookMovement : MonoBehaviour
     {
         if (recalling) return;
         recalling = true;
-        AudioManager.Instance.PlayReel();
+        AudioManager.Instance.Play(AudioManager.Instance.reelUp);
     }
 
     void Update()
@@ -225,7 +225,6 @@ public class HookMovement : MonoBehaviour
             casting = false;
             recalling = false;
 
-            AudioManager.Instance.StopReel();
             AudioManager.Instance.Play(AudioManager.Instance.happy);
 
             body.position = position;
