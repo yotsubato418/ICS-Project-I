@@ -9,8 +9,7 @@ public class Top3Best : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdateDisplay();
-
+        
     }
 
     // Update is called once per frame
@@ -22,6 +21,10 @@ public class Top3Best : MonoBehaviour
     public void Savescore()
     {
         int currentscore = scoreScript.score;
+
+        Debug.Log("Saving score: " + currentscore);
+
+
 
         int best1 = PlayerPrefs.GetInt("BestScore1", 0);
         int best2 = PlayerPrefs.GetInt("BestScore2", 0);
@@ -60,7 +63,14 @@ public class Top3Best : MonoBehaviour
         int best2 = PlayerPrefs.GetInt("BestScore2", 0);
         int best3 = PlayerPrefs.GetInt("BestScore3", 0);
 
-        bestScoresText.text = "Best Runs: \n " + "1. " + best1 + "\n" + "2. " + best2 + "\n" +  "3. " + best3;
+
+        bestScoresText.text = "Best Runs: \n" + "1. " + best1 + "\n" + "2. " + best2 + "\n" +  "3. " + best3;
+
+        // if (best1 != best1 || best2 != best2 || best3 != best3){
+
+        //     bestScoresText.text = "Best Runs: \n " + "1. " + best1 + "\n" + "2. " + best2 + "\n" +  "3. " + best3;
+        // }
+
     }
 }
 

@@ -39,7 +39,7 @@ public class Score : MonoBehaviour
             if (other.name.Contains("secret"))
                 score += 10;
             
-            // Debug.Log("Score: " + score);
+            Debug.Log("Score: " + score);
             scoreText.text = "Score: " + score;
         }
     }
