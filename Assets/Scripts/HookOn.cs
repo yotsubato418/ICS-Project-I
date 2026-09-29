@@ -104,7 +104,8 @@ public class HookOn : MonoBehaviour
 
             totalMass += fishBody.mass;
 
-            // How strongly gravity pulls this fish downward.
+
+            // how strongly gravity pulls this fish downward.
             downwardForce += fishBody.mass *
                 Mathf.Max(0f, -Physics2D.gravity.y * fishBody.gravityScale);
         }
