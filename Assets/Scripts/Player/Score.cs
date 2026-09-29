@@ -23,10 +23,6 @@ public class Score : MonoBehaviour
     {
         if (other.CompareTag("Fish"))
         {
-<<<<<<< HEAD
-            score += 1;
-            scoreText.text = "Score: " + score;
-=======
             if (other.name.Contains("1"))
                 score += 1;
             if (other.name.Contains("2"))
@@ -41,7 +37,6 @@ public class Score : MonoBehaviour
                 score += 10;
             
             Debug.Log("Score: " + score);
->>>>>>> 7040fe1fe111b90b9520b1f8c86f4c1ce5c8b637
         }
     }
 }
