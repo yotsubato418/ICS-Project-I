@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using TMPro;
 
 public class Score : MonoBehaviour
@@ -49,5 +49,12 @@ public class Score : MonoBehaviour
             scoreText.text = "Score: " + score;
             countText.text = "Fish: " + count;
         }
+    }
+    public void ResetScore()
+    {
+        score = 0;
+        count = 0;
+        scoreText.text = "Score: " + score;
+        countText.text = "Fish: " + count;
     }
 }

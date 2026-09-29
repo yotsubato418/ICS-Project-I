@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HookMovement : MonoBehaviour
+
 {
+    [SerializeField] Score scoreScript;
     [Header("Physics")]
     [SerializeField] float hookMass = 1f;
     [SerializeField] float horizontalAcceleration = 15f;
@@ -74,6 +76,8 @@ public class HookMovement : MonoBehaviour
 
         if (mainCamera != null)
             mainCamera.GetComponent<Cameramovement>().ResetPosition();
+        if (scoreScript != null)
+            scoreScript.ResetScore();
     }
     void Update()
     {
