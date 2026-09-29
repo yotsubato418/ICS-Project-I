@@ -226,6 +226,11 @@ public class HookMovement : MonoBehaviour
             recalling = false;
 
             AudioManager.Instance.Play(AudioManager.Instance.happy);
+            
+            if (hookCatch != null)
+                hookCatch.ClearCaughtFish();
+
+            FindFirstObjectByType<Score>().ShowResult();
 
             body.position = position;
             body.linearVelocity = Vector2.zero;
