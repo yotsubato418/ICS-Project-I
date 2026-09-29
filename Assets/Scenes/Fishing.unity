@@ -850,6 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d835b6e4fddc178479ab47d853be7ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HookMovement
+  scoreScript: {fileID: 590075467}
   hookMass: 1
   horizontalAcceleration: 15
   descentAcceleration: 6
