@@ -10,6 +10,7 @@ public class DepthBarScript : MonoBehaviour
     void Start()
     {
         depthText.color = Color.black;
+        depthText.fontSize = 60;
         depthText.fontStyle = FontStyles.Bold;
         hook = GameObject.FindWithTag("Hook").transform;
     }
