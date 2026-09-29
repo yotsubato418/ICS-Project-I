@@ -3,11 +3,11 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public AudioSource reelSource;
 
     [Header("Audio Sources")]
     public AudioSource musicSource;  
-    public AudioSource sfxSource;   
+    public AudioSource sfxSource;
+    public AudioSource reelSource;
 
     [Header("Clips")]
     public AudioClip music;
@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip bump;
     public AudioClip reelUp;
     public AudioClip happy;
+
+    public AudioClip broken;
 
     void Awake()
     {

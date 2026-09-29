@@ -49,20 +49,37 @@ public class HookMovement : MonoBehaviour
         mainCamera = Camera.main;
         mouseTargetX = body.position.x;
     }
-
     void StartRecall()
     {
         if (recalling) return;
         recalling = true;
         AudioManager.Instance.PlayReel();
     }
+    void BreakAndReset()
+    {
+        casting = false;
+        recalling = false;
 
+        AudioManager.Instance.StopReel();
+
+        if (hookCatch != null)
+            hookCatch.ReleaseCaughtFish();
+
+        body.position = new Vector2(0f, surfaceY);
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
+        body.bodyType = RigidbodyType2D.Kinematic;
+
+        durability.ResetDurability();
+
+        if (mainCamera != null)
+            mainCamera.GetComponent<Cameramovement>().ResetPosition();
+    }
     void Update()
     {
         if (casting && durability.CurrentDurability <= 0f)
         {
-            StartRecall();
-            recalling = true;
+            BreakAndReset();
         }
         Mouse mouse = Mouse.current;
 

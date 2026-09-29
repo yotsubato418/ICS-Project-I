@@ -31,6 +31,17 @@ public class HookDurability : MonoBehaviour
         Debug.Log("Hook durability: " + currentDurability, this);
 
         if (currentDurability == 0f)
+        {
             Debug.Log("Hook is broken!", this);
+            AudioManager.Instance.Play(AudioManager.Instance.broken); 
+        }
+    }
+    public void ResetDurability()
+    {
+        currentDurability = maxDurability;
+        if (durabilityBar != null)
+        {
+            durabilityBar.localScale = new Vector3(fullWidth, durabilityBar.localScale.y, 1f);
+        }
     }
 }
