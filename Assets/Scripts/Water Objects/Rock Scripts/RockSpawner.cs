@@ -8,8 +8,6 @@ public class RockSpawner : MonoBehaviour
     public float DepthWeight = 1f;
 
     public Transform hookTransform;
-    public float bottomLimit = -30f;
-    bool stoppedAtBottom = false;
 
     public float spawnInterval = 2f;
     public float minX = -8f;
@@ -34,12 +32,6 @@ public class RockSpawner : MonoBehaviour
         {
             started = true;
             InvokeRepeating(nameof(SpawnRock), 0f, spawnInterval);
-        }
-
-        if (started && !stoppedAtBottom && hookTransform != null && hookTransform.position.y <= bottomLimit)
-        {
-            stoppedAtBottom = true;
-            CancelInvoke(nameof(SpawnRock));
         }
     }
     void SpawnRock()

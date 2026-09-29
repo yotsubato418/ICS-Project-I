@@ -15,8 +15,7 @@ public class HookMovement : MonoBehaviour
     [Header("Movement Limits")]
     [SerializeField] float leftLimit = -4f;
     [SerializeField] float rightLimit = 4f;
-    [SerializeField] float surfaceY = 3f;
-    [SerializeField] float bottomY = -3f;
+    [SerializeField] float surfaceY = 3f; 
     [SerializeField] float mouseSteeringSensitivity = 2f;
 
     enum ControlMode { Mouse, AD, Arrows }
@@ -218,14 +217,6 @@ public class HookMovement : MonoBehaviour
         {
             position.x = 0f;
             velocity.x = 0f;
-        }
-
-        if (casting && !recalling && position.y <= bottomY)
-        {
-            position.y = bottomY;
-            velocity.y = 0f;
-            recalling = true;
-            StartRecall();
         }
 
         if (casting && recalling && position.y >= surfaceY)
